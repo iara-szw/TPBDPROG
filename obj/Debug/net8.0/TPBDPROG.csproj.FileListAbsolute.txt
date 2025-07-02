@@ -1,0 +1,9 @@
+C:\Users\49193480\TPBDPROG\obj\Debug\net8.0\TPBDPROG.csproj.AssemblyReference.cache
+C:\Users\49193480\TPBDPROG\obj\Debug\net8.0\TPBDPROG.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\49193480\TPBDPROG\obj\Debug\net8.0\TPBDPROG.AssemblyInfoInputs.cache
+C:\Users\49193480\TPBDPROG\obj\Debug\net8.0\TPBDPROG.AssemblyInfo.cs
+C:\Users\49193480\TPBDPROG\obj\Debug\net8.0\TPBDPROG.csproj.CoreCompileInputs.cache
+C:\Users\49193480\TPBDPROG\obj\Debug\net8.0\TPBDPROG.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\49193480\TPBDPROG\obj\Debug\net8.0\TPBDPROG.RazorAssemblyInfo.cache
+C:\Users\49193480\TPBDPROG\obj\Debug\net8.0\TPBDPROG.RazorAssemblyInfo.cs
+C:\Users\49193480\TPBDPROG\obj\Debug\net8.0\TPBDPROG.sourcelink.json

@@ -26,9 +26,9 @@ public class HomeController : Controller
         bool encontrado=false;
         int i=0;
          List<Integrante> integrantes=BD.levantarIntegrantes();
-        while(!encontrado && i<int){
+        while(!encontrado && i<integrantes.Count){
             if(integrantes[i].nombreUsuario==nombreUsuarioIntento){
-                encontrado=true
+                encontrado=true;
             }else{
                 i++;
             }
@@ -40,6 +40,7 @@ public class HomeController : Controller
                 return View("iniciarSesion");
             }
         }
+        return View();
     }
 
     public IActionResult vistaUsuario(Integrante integrante){
@@ -49,7 +50,7 @@ public class HomeController : Controller
         ViewBag.edad=integrante.ObtenerEdad(integrante.fechaNacimiento);
         ViewBag.cancion=integrante.cancionFav;
         ViewBag.materia=integrante.materiaFav;
-
+        return View();
     }
 
     public IActionResult registrarse(string estado){
@@ -57,17 +58,15 @@ public class HomeController : Controller
         return View();
     }
 
-      public IActionResult registrarNuevo(string nombreUsuarioNuevo,string contrasenia, string DNI,string NombreCompleto,date fechaNacimiento,string cancion, string materia){
-        ViewBag.estado=estado;
+      public IActionResult registrarNuevo(string nombreUsuarioNuevo,string contrasenia, string DNI,string NombreCompleto,DateTime fechaNacimiento,string cancion, string materia){
           List<Integrante> integrantes=BD.levantarIntegrantes();
        bool encontrado=integrantes.nombreUsuario.Contains(nombreUsuarioNuevo);
         if(encontrado){
-            return RedirectToAction("registrarse","errorUsuario")
+            return RedirectToAction("registrarse","errorUsuario");
         }else{
             BD.crearIntegrante(nombreUsuarioNuevo,contrasenia,DNI,NombreCompleto,fechaNacimiento,cancion,materia);
-            return RedirectToAction("registrarse","errorUsuario")
+            return RedirectToAction("registrarse","funciono");
 
         }
-        return View();
     }
 }
