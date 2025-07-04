@@ -1,6 +1,6 @@
 <body>
 
-<form action="Url.Action(registrarNuevo)" method="post">
+<form action='@Url.Action("registrarNuevo")' method="post">
 <input type="text" name="nombreUsuarioNuevo">
 <input type="text" name="contrasenia">
 <input type="text" name="DNI">
@@ -11,6 +11,6 @@
 
 <input type="submit">
 </form>
-<a href="Url.Action(registrar)" method="post">Registrarse</a>
+<a href='@Url.Action("registrar")' method="post">Registrarse</a>
 
 </body>

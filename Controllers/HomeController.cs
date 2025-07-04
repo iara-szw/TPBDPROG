@@ -18,31 +18,39 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult iniciarSesion(){
+    public IActionResult iniciarSesion(string estado){
+            ViewBag.estado=estado;
         return View();
     }
 
     public IActionResult comprobarDatos(string nombreUsuarioIntento, string contraseniaIntento){
-        bool encontrado=false;
+                List<Integrante> integrantes= new List<Integrante>();
+          foreach(Integrante inte in BD.levantarIntegrantes()){
+            integrantes.Add(inte);
+          }
+        int posicionUsuario=buscarNombreUsuario(integrantes,nombreUsuarioIntento);
+        if(posicionUsuario<integrantes.Count){
+            if(integrantes[posicionUsuario].comprobarContrasenia(contraseniaIntento)){
+                return RedirectToAction("vistaUsuario",integrantes[posicionUsuario]);
+            }else{
+                return RedirectToAction("iniciarSesion",new{estado="contraseniaIncorrecta"});
+            }
+        }
+        return RedirectToAction("iniciarSesion",new{estado="usuarioNoEncontrado"});
+    }
+    
+    private int buscarNombreUsuario(List<Integrante> integrantes, string nombreUsuarioIntento){
         int i=0;
-         List<Integrante> integrantes=BD.levantarIntegrantes();
-        while(!encontrado && i<integrantes.Count){
+        bool encontrado=false;
+                while(!encontrado && i<integrantes.Count){
             if(integrantes[i].nombreUsuario==nombreUsuarioIntento){
                 encontrado=true;
             }else{
                 i++;
             }
         }
-        if(encontrado){
-            if(integrantes[i].contrasenia==contraseniaIntento){
-                return RedirectToAction("vistaUsuario",integrantes[i]);
-            }else{
-                return View("iniciarSesion");
-            }
-        }
-        return View();
+        return i;
     }
-
     public IActionResult vistaUsuario(Integrante integrante){
         ViewBag.Usuario=integrante.nombreUsuario;
         ViewBag.DNI=integrante.DNI;
@@ -59,14 +67,21 @@ public class HomeController : Controller
     }
 
       public IActionResult registrarNuevo(string nombreUsuarioNuevo,string contrasenia, string DNI,string NombreCompleto,DateTime fechaNacimiento,string cancion, string materia){
-          List<Integrante> integrantes=BD.levantarIntegrantes();
-       bool encontrado=integrantes.nombreUsuario.Contains(nombreUsuarioNuevo);
-        if(encontrado){
+          Integrante inte=new Integrante();
+          List<Integrante> integrantes= new List<Integrante>();
+          foreach(Integrante integ in BD.levantarIntegrantes()){
+            integrantes.Add(integ);
+          }
+
+         int posicionUsuario=buscarNombreUsuario(integrantes,nombreUsuarioNuevo);
+
+        if(posicionUsuario<integrantes.Count){
             return RedirectToAction("registrarse","errorUsuario");
         }else{
-            BD.crearIntegrante(nombreUsuarioNuevo,contrasenia,DNI,NombreCompleto,fechaNacimiento,cancion,materia);
+            inte.crearIntegrante(nombreUsuarioNuevo,contrasenia,DNI,NombreCompleto,fechaNacimiento,cancion,materia);
+            integrantes.Add(inte);
+            BD.agregarIntegrante(integrantes[integrantes.Count-1]);
             return RedirectToAction("registrarse","funciono");
-
         }
     }
 }

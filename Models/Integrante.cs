@@ -1,6 +1,6 @@
 public class Integrante{
     public string nombreUsuario{get; set;}
-    public string contrasenia{private get; set;}
+    public string contrasenia{get; set;}
     public string DNI{get; set;}
     public string nombreCompleto{get; set;}
     public DateTime fechaNacimiento{get; set;}
@@ -20,6 +20,14 @@ public class Integrante{
 
         public int ObtenerEdad(DateTime nacimiento){
         return DateTime.Today.Year - nacimiento.Year;
+       }
+
+       public bool comprobarContrasenia(string contraseniaIntento){
+        bool correcto=false;
+        if(contrasenia==contraseniaIntento){
+            correcto=true;
+        }
+        return correcto;
        }
 
 }
