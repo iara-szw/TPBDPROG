@@ -28,9 +28,9 @@ public class HomeController : Controller
           foreach(Integrante inte in BD.levantarIntegrantes()){
             integrantes.Add(inte);
           }
-        int posicionUsuario=buscarNombreUsuario(integrantes,nombreUsuarioIntento);
+        int posicionUsuario=buscarNombreUsuario(nombreUsuarioIntento);
         if(posicionUsuario<integrantes.Count){
-            if(integrantes[posicionUsuario].comprobarContrasenia(contraseniaIntento)){
+            if(integrantes[posicionUsuario].password==contraseniaIntento){
                 return RedirectToAction("vistaUsuario",integrantes[posicionUsuario]);
             }else{
                 return RedirectToAction("iniciarSesion",new{estado="contraseniaIncorrecta"});
@@ -39,8 +39,13 @@ public class HomeController : Controller
         return RedirectToAction("iniciarSesion",new{estado="usuarioNoEncontrado"});
     }
     
-    private int buscarNombreUsuario(List<Integrante> integrantes, string nombreUsuarioIntento){
+    private int buscarNombreUsuario(string nombreUsuarioIntento){
         int i=0;
+                  List<Integrante> integrantes= new List<Integrante>();
+
+         foreach(Integrante integ in BD.levantarIntegrantes()){
+            integrantes.Add(integ);
+          }
         bool encontrado=false;
                 while(!encontrado && i<integrantes.Count){
             if(integrantes[i].nombreUsuario==nombreUsuarioIntento){
@@ -66,22 +71,25 @@ public class HomeController : Controller
         return View();
     }
 
-      public IActionResult registrarNuevo(string nombreUsuarioNuevo,string contrasenia, string DNI,string NombreCompleto,DateTime fechaNacimiento,string cancion, string materia){
+      public IActionResult registrarNuevo(string nombreUsuarioNuevo,string password, string DNI,string NombreCompleto,DateTime fechaNacimiento,string cancion, string materia){
           Integrante inte=new Integrante();
           List<Integrante> integrantes= new List<Integrante>();
           foreach(Integrante integ in BD.levantarIntegrantes()){
             integrantes.Add(integ);
           }
 
-         int posicionUsuario=buscarNombreUsuario(integrantes,nombreUsuarioNuevo);
+         int posicionUsuario=buscarNombreUsuario(nombreUsuarioNuevo);
 
         if(posicionUsuario<integrantes.Count){
-            return RedirectToAction("registrarse","errorUsuario");
+            return RedirectToAction("registrarse", new{ estado="errorUsuario"});
         }else{
-            inte.crearIntegrante(nombreUsuarioNuevo,contrasenia,DNI,NombreCompleto,fechaNacimiento,cancion,materia);
+            inte.crearIntegrante(nombreUsuarioNuevo,password,DNI,NombreCompleto,fechaNacimiento,cancion,materia);
             integrantes.Add(inte);
             BD.agregarIntegrante(integrantes[integrantes.Count-1]);
-            return RedirectToAction("registrarse","funciono");
+            if(buscarNombreUsuario(nombreUsuarioNuevo)>integrantes.Count){
+                 return RedirectToAction("registrarse", new{estado="Nofunciono"});
+            }
+            return RedirectToAction("registrarse",new{estado="funciono"});
         }
     }
 }
