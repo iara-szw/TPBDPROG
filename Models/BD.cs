@@ -6,7 +6,7 @@ public static class BD{
     DataBase=BDintegrantes; Integrated Security=True; TrustServerCertificate=True;";
     public static void agregarIntegrante(Integrante inte){
 
-        string query = "INSERT INTO Integrantes (inte.nombreUsuario, inte.password, inte.DNI, inte.nombreCompleto, inte.fechaNacimiento, inte.cancionFav, inte.materiaFav) VALUES (@pnombreUsuario, @ppassword, @pDNI, @pnombreCompleto, @pfechaNacimiento, @pcancionFav, @pmateriaFav)";
+        string query = "INSERT INTO Integrantes (nombreUsuario, password, DNI, nombreCompleto,fechaNacimiento,cancionFav,materiaFav) VALUES (@pnombreUsuario, @ppassword, @pDNI, @pnombreCompleto, @pfechaNacimiento, @pcancionFav, @pmateriaFav)";
         using(SqlConnection connection = new SqlConnection(connectionString)){
         connection.Execute(query, new { pnombreUsuario=inte.nombreUsuario,  ppassword=inte.password,pDNI=inte.DNI, pnombreCompleto=inte.nombreCompleto, pfechaNacimiento=inte.fechaNacimiento, pcancionFav=inte.cancionFav,pmateriaFav=inte.materiaFav });
         }

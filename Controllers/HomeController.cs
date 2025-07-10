@@ -24,13 +24,11 @@ public class HomeController : Controller
     }
 
     public IActionResult comprobarDatos(string nombreUsuarioIntento, string contraseniaIntento){
-                List<Integrante> integrantes= new List<Integrante>();
-          foreach(Integrante inte in BD.levantarIntegrantes()){
-            integrantes.Add(inte);
-          }
+        List<Integrante> integrantes = BD.levantarIntegrantes();
         int posicionUsuario=buscarNombreUsuario(nombreUsuarioIntento);
-        if(posicionUsuario<integrantes.Count){
-            if(integrantes[posicionUsuario].password==contraseniaIntento){
+        string passHasheada = encriptar.HashearPassword(contraseniaIntento);
+        if(posicionUsuario !=-1){
+            if(integrantes[posicionUsuario].password == passHasheada){
                 return RedirectToAction("vistaUsuario",integrantes[posicionUsuario]);
             }else{
                 return RedirectToAction("iniciarSesion",new{estado="contraseniaIncorrecta"});
@@ -40,21 +38,14 @@ public class HomeController : Controller
     }
     
     private int buscarNombreUsuario(string nombreUsuarioIntento){
-        int i=0;
-                  List<Integrante> integrantes= new List<Integrante>();
-
-         foreach(Integrante integ in BD.levantarIntegrantes()){
-            integrantes.Add(integ);
-          }
+         List<Integrante> integrantes = BD.levantarIntegrantes();
         bool encontrado=false;
-                while(!encontrado && i<integrantes.Count){
+                for(int i=0;i<integrantes.Count;i++){
             if(integrantes[i].nombreUsuario==nombreUsuarioIntento){
-                encontrado=true;
-            }else{
-                i++;
+                return i;
             }
         }
-        return i;
+        return -1;
     }
     public IActionResult vistaUsuario(Integrante integrante){
         ViewBag.Usuario=integrante.nombreUsuario;
@@ -72,21 +63,15 @@ public class HomeController : Controller
     }
 
       public IActionResult registrarNuevo(string nombreUsuarioNuevo,string password, string DNI,string NombreCompleto,DateTime fechaNacimiento,string cancion, string materia){
-          Integrante inte=new Integrante();
-          List<Integrante> integrantes= new List<Integrante>();
-          foreach(Integrante integ in BD.levantarIntegrantes()){
-            integrantes.Add(integ);
-          }
-
+        Integrante inte=new Integrante();
          int posicionUsuario=buscarNombreUsuario(nombreUsuarioNuevo);
-
-        if(posicionUsuario<integrantes.Count){
+        if(posicionUsuario!=-1){
             return RedirectToAction("registrarse", new{ estado="errorUsuario"});
         }else{
-            inte.crearIntegrante(nombreUsuarioNuevo,password,DNI,NombreCompleto,fechaNacimiento,cancion,materia);
-            integrantes.Add(inte);
-            BD.agregarIntegrante(integrantes[integrantes.Count-1]);
-            if(buscarNombreUsuario(nombreUsuarioNuevo)>integrantes.Count){
+            string passwordHasheada = encriptar.HashearPassword(password);
+            inte.crearIntegrante(nombreUsuarioNuevo, passwordHasheada, DNI, NombreCompleto, fechaNacimiento, cancion, materia);
+            BD.agregarIntegrante(inte);
+            if(buscarNombreUsuario(nombreUsuarioNuevo)==-1){
                  return RedirectToAction("registrarse", new{estado="Nofunciono"});
             }
             return RedirectToAction("registrarse",new{estado="funciono"});
