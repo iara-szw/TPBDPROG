@@ -23,37 +23,22 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult comprobarDatos(string nombreUsuarioIntento, string contraseniaIntento){
-        List<Integrante> integrantes = BD.levantarIntegrantes();
-        int posicionUsuario=buscarNombreUsuario(nombreUsuarioIntento);
-        string passHasheada = encriptar.HashearPassword(contraseniaIntento);
-        if(posicionUsuario !=-1){
-            if(integrantes[posicionUsuario].password == passHasheada){
-                return RedirectToAction("vistaUsuario",integrantes[posicionUsuario]);
+    public IActionResult comprobarDatos(string nombreUsuarioNuevo, string password){
+       Integrante integrante = BD.levantarIntegrante(nombreUsuarioNuevo,encriptar.HashearPassword(password));
+            if(integrante != null){
+                return RedirectToAction("vistaUsuario",integrante);
             }else{
-                return RedirectToAction("iniciarSesion",new{estado="contraseniaIncorrecta"});
+                return RedirectToAction("iniciarSesion",new{estado="Error"});
             }
-        }
-        return RedirectToAction("iniciarSesion",new{estado="usuarioNoEncontrado"});
     }
     
-    private int buscarNombreUsuario(string nombreUsuarioIntento){
-         List<Integrante> integrantes = BD.levantarIntegrantes();
-        bool encontrado=false;
-                for(int i=0;i<integrantes.Count;i++){
-            if(integrantes[i].nombreUsuario==nombreUsuarioIntento){
-                return i;
-            }
-        }
-        return -1;
-    }
     public IActionResult vistaUsuario(Integrante integrante){
         ViewBag.Usuario=integrante.nombreUsuario;
         ViewBag.DNI=integrante.DNI;
         ViewBag.nombre=integrante.nombreCompleto;
         ViewBag.edad=integrante.ObtenerEdad(integrante.fechaNacimiento);
         ViewBag.cancion=integrante.cancionFav;
-        ViewBag.materia=integrante.materiaFav;
+        ViewBag.libro=integrante.libroFav;
         return View();
     }
 
@@ -62,16 +47,15 @@ public class HomeController : Controller
         return View();
     }
 
-      public IActionResult registrarNuevo(string nombreUsuarioNuevo,string password, string DNI,string NombreCompleto,DateTime fechaNacimiento,string cancion, string materia){
-        Integrante inte=new Integrante();
-         int posicionUsuario=buscarNombreUsuario(nombreUsuarioNuevo);
-        if(posicionUsuario!=-1){
+      public IActionResult registrarNuevo(string nombreUsuarioNuevo,string password, string DNI,string nombreCompleto,DateTime fechaNacimiento,string cancionFav, string libroFav){
+        if(BD.yaExiste(nombreUsuarioNuevo)){
             return RedirectToAction("registrarse", new{ estado="errorUsuario"});
         }else{
+            Integrante inte=new Integrante();
             string passwordHasheada = encriptar.HashearPassword(password);
-            inte.crearIntegrante(nombreUsuarioNuevo, passwordHasheada, DNI, NombreCompleto, fechaNacimiento, cancion, materia);
+            inte.crearIntegrante(nombreUsuarioNuevo, passwordHasheada, DNI, nombreCompleto, fechaNacimiento, cancionFav, libroFav);
             BD.agregarIntegrante(inte);
-            if(buscarNombreUsuario(nombreUsuarioNuevo)==-1){
+            if(!BD.yaExiste(nombreUsuarioNuevo)){
                  return RedirectToAction("registrarse", new{estado="Nofunciono"});
             }
             return RedirectToAction("registrarse",new{estado="funciono"});

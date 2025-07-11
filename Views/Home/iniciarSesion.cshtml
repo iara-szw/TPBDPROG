@@ -1,10 +1,10 @@
 <body>
-@if (ViewBag.estado=="contraseniaIncorrecta" || ViewBag.estado=="usuarioNoEncontrado"){
-    <h2>@ViewBag.estado</h2>
+@if(ViewBag.estado=="error"){
+    <h2>El usuario o la contraseña son incorrectas, vuelva a intentarlo</h2>
 }
 <form action='@Url.Action("comprobarDatos")' method="post">
 <input type="text" name="nombreUsuarioNuevo" required>
-<input type="password" name="contrasenia" required>
+<input type="password" name="password" required>
 <input type="submit">
 </form>
 <a href='@Url.Action("registrarse")' method="post">Registrarse</a>

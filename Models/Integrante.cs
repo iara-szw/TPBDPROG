@@ -5,16 +5,16 @@ public class Integrante{
     public string nombreCompleto{get; set;}
     public DateTime fechaNacimiento{get; set;}
     public string cancionFav{get;set;}
-    public string materiaFav{get;set;}
+    public string libroFav{get;set;}
 
-    public void crearIntegrante(string NombreUsuario,string Password, string dni, string NombreCompleto,DateTime nacimiento,string Cancion,string Materia){
+    public void crearIntegrante(string NombreUsuario,string Password, string dni, string NombreCompleto,DateTime nacimiento,string Cancion,string LibroFav){
         nombreUsuario=NombreUsuario;
         password=Password;
         DNI=dni;
         nombreCompleto=NombreCompleto;
         fechaNacimiento=nacimiento;
         cancionFav=Cancion;
-        materiaFav=Materia;
+        libroFav=LibroFav;
     }
 
 
