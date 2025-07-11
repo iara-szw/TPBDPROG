@@ -15,6 +15,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        ViewBag.yaEstaIniciado=HttpContect.Session.Getstring("estaIniciado");
         return View();
     }
 
@@ -24,8 +25,10 @@ public class HomeController : Controller
     }
 
     public IActionResult comprobarDatos(string nombreUsuarioNuevo, string password){
+        HttpContext.Session.SetString("estaIniciado","false");
        Integrante integrante = BD.levantarIntegrante(nombreUsuarioNuevo,encriptar.HashearPassword(password));
             if(integrante != null){
+                HttpContext.Session.SetString("estaIniciado","true");
                 return RedirectToAction("vistaUsuario",integrante);
             }else{
                 return RedirectToAction("iniciarSesion",new{estado="Error"});
@@ -33,6 +36,7 @@ public class HomeController : Controller
     }
     
     public IActionResult vistaUsuario(Integrante integrante){
+        ViewBag.yaEstaIniciado=HttpContect.Session.Getstring("estaIniciado");
         ViewBag.Usuario=integrante.nombreUsuario;
         ViewBag.DNI=integrante.DNI;
         ViewBag.nombre=integrante.nombreCompleto;
@@ -42,6 +46,10 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionREsult cerrarSesion(){
+        ViewBag.yaEstaIniciado=HttpContect.Session.Setstring("estaIniciado","false");
+        return RedirectToAction("index");
+    }
     public IActionResult registrarse(string estado){
         ViewBag.estado=estado;
         return View();
