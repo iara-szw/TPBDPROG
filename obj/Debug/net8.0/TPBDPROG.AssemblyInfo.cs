@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TPBDPROG")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6a90a96d08610bbb1a63a1eb818b82cc68e12571")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+428e1523b45c04e833d5428c18db08217d269b4e")]
 [assembly: System.Reflection.AssemblyProductAttribute("TPBDPROG")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TPBDPROG")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

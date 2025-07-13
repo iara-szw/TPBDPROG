@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HDmeh/38A5fcsGrfP5n6pqH6lpIN17DGxZLacDYZA+Y=",
+  "Hash": "LkO1VRzmKoixGwdXlrSre/0BgCYN3wK6lsduG5E6ByA=",
   "Source": "TPBDPROG",
   "BasePath": "_content/TPBDPROG",
   "Mode": "Default",
@@ -34,6 +34,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\iarit\\Downloads\\TPBDPROG\\wwwroot\\css\\style.css",
+      "SourceId": "TPBDPROG",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\iarit\\Downloads\\TPBDPROG\\wwwroot\\",
+      "BasePath": "_content/TPBDPROG",
+      "RelativePath": "css/style.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\style.css"
     },
     {
       "Identity": "C:\\Users\\iarit\\Downloads\\TPBDPROG\\wwwroot\\favicon.ico",

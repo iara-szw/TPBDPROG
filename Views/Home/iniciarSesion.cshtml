@@ -1,12 +1,26 @@
+@{
+    ViewData["Title"] = "iniciarSesion";
+}
+<link rel="stylesheet" href="/css/style.css">
+    <header>
+       <h1>☆</h1> 
+    </header> 
 <body>
 @if(ViewBag.estado=="error"){
-    <h2>El usuario o la contraseña son incorrectas, vuelva a intentarlo</h2>
+    <h2 class="error">El usuario o la contraseña son incorrectas, vuelva a intentarlo</h2>
 }
+<section class="sesion">
 <form action='@Url.Action("comprobarDatos")' method="post">
-<input type="text" name="nombreUsuarioNuevo" required>
-<input type="password" name="password" required>
-<input type="submit">
+ <p>Nombre de usuario:</p><input type="text" name="nombreUsuarioNuevo" required>
+ <p>Contraseña:</p><input type="password" name="password" required>
+<input type="submit" value="Iniciar Sesión">
 </form>
-<a href='@Url.Action("registrarse")' method="post">Registrarse</a>
-}
+</section>
+ <div class="otra">
+                <h4>¿No tenes usuario?</h4>
+                <a href='@Url.Action("registrarse")' method="post">Registrarse</a>
+</div>
+
+
 </body>
+<footer></footer>

@@ -1,18 +1,33 @@
+@{
+    ViewData["Title"] = "Registrarse";
+}
+<link rel="stylesheet" href="/css/style.css">
+    <header>
+       <h1>☆</h1> 
+    </header> 
 <body>
+    <section>
 @if(ViewBag.estado=="errorUsuario"){
-    <h2>el nombre de usuario ya esta siendo usado. Intente con otro nombre.</h2>
+    <h2 class="error">el nombre de usuario ya esta siendo usado. Intente con otro nombre.</h2>
 }
 <form action='@Url.Action("registrarNuevo")' method="post">
-<input type="text" name="nombreUsuarioNuevo" required>
-<input type="text" name="password" required>
-<input type="text" name="DNI" MaxLength="8" required>
-<input type="text" name="nombreCompleto" required>
-<input type="date" name="fechaNacimiento" required>
-<input type="text" name="cancionFav" required>
-<input type="text" name="libroFav" required>
+<p>Nombre de usuario:</p><input type="text" name="nombreUsuarioNuevo" required>
+<p>Contraseña:</p><input type="text" name="password" required>
+<p>DNI:</p><input type="text" name="DNI" MaxLength="8" required>
+<p>Nombre completo:</p><input type="text" name="nombreCompleto" required>
+<p>Fecha de nacimiento:</p><input type="date" name="fechaNacimiento" required>
+<p>Canción favorita:</p><input type="text" name="cancionFav" required>
+<p>Libro favorito:</p><input type="text" name="libroFav" required>
 
-<input type="submit">
+<input type="submit" value="Registrarse">
 </form>
-<a href='@Url.Action("iniciarSesion")' method="post">Iniciar Sesión</a>
+</section>
+<div>
+<a href='@Url.Action("iniciarSesion")' method="post" class="iniciarSesion">Iniciar Sesión</a>
+</div>
+
+
+
 
 </body>
+<footer></footer>

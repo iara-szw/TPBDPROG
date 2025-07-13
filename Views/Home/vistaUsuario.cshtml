@@ -1,12 +1,22 @@
+@{
+    ViewData["Title"] = "Perfil";
+}
+<link rel="stylesheet" href="/css/style.css">
+    <header>
+       <h1>☆</h1> 
+    </header> 
 <body>
 
-    <h2>@ViewBag.Usuario</h2>
-      <h2> @ViewBag.DNI</h2>
-      <h2>  @ViewBag.nombre</h2>
-      <h2>  @ViewBag.edad</h2>
-      <h2>  @ViewBag.cancion</h2>
-     <h2>   @ViewBag.libro</h2>
+    <div><h2 class="nombre">@ViewBag.Usuario</h2></div>  
+     <section class="perfil">
+    <div><h2>DNI: <h3>@ViewBag.DNI</h3></h2></div> 
+      <div><h2>Nombre completo:<h3>@ViewBag.nombre</h3></h2></div> 
+     <div><h2>Edad actual:<h3>@ViewBag.edad</h3></h2></div> 
+     <div><h2>Canción favorita:<h3>@ViewBag.cancion</h3></h2></div> 
+    <div><h2>Libro favorito:<h3>@ViewBag.libro</h3></h2></div> 
       <form action='@Url.Action("cerrarSesion")'>
         <input type="submit" value="Cerrar Sesión">
       </form>
+      </section>
  </body>
+ <footer></footer>
