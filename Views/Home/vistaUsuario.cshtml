@@ -1,13 +1,12 @@
 <body>
-@if(ViewBag.yaEstaIniciado){
+
     <h2>@ViewBag.Usuario</h2>
       <h2> @ViewBag.DNI</h2>
       <h2>  @ViewBag.nombre</h2>
       <h2>  @ViewBag.edad</h2>
       <h2>  @ViewBag.cancion</h2>
      <h2>   @ViewBag.libro</h2>
-    
-}else{
-  <h2>Inicia sesión primero</h2>
-}
+      <form action='@Url.Action("cerrarSesion")'>
+        <input type="submit" value="Cerrar Sesión">
+      </form>
  </body>

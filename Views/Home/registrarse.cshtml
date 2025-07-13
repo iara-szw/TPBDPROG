@@ -1,8 +1,6 @@
 <body>
-@if(ViewBag.estado=="funciono"){
-    <h2>Se agrego el usuario exitosamente</h2>
-}else if(ViewBag.estado=="noFunciono"){
-    <h2>Hubo un error al registrar el usuario. Vuelva a intentar mas tarde</h2>
+@if(ViewBag.estado=="errorUsuario"){
+    <h2>el nombre de usuario ya esta siendo usado. Intente con otro nombre.</h2>
 }
 <form action='@Url.Action("registrarNuevo")' method="post">
 <input type="text" name="nombreUsuarioNuevo" required>

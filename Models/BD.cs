@@ -2,7 +2,7 @@ using Microsoft.Data.SqlClient;
 using Dapper;
 public static class BD{
 
-    public static string connectionString = @"Server=localhost;
+    public static string connectionString = @"Server=localhost\SQLEXPRESS01;
     DataBase=BDintegrantes; Integrated Security=True; TrustServerCertificate=True;";
     public static void agregarIntegrante(Integrante inte){
 
